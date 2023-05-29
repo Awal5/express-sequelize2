@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Status.belongsTo(models.User, {
         foreignKey: "user_id",
         onDelete: "CASCADE",
-        onUpdate: "RESTRICT",
+        onUpdate: "CASCADE",
       });
     }
   }
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.UUID, primaryKey: true, allowNull: false },
       title: DataTypes.STRING,
       body: DataTypes.STRING,
-      user_id: DataTypes.STRING,
+      user_id: DataTypes.INTEGER,
     },
     {
       sequelize,

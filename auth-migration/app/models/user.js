@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Status, {
         onDelete: "CASCADE",
-        onUpdate: "RESTRICT",
+        onUpdate: "CASCADE",
       });
       User.belongsToMany(models.Role, {
         through: "user_roles",
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      id: { type: DataTypes.STRING, primaryKey: true, allowNull: false },
+      id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
