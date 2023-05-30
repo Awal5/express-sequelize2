@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Role.belongsToMany(models.User, {
         through: "user_roles",
-        foreignKey: "roleId",
-        otherKey: "userId",
+        foreignKey: "role_id",
+        otherKey: "user_id",
         onDelete: "RESTRICT",
         onUpdate: "CASCADE",
       });
