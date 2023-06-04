@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Role.belongsToMany(models.User, {
         through: "user_roles",
-        foreignKey: "role_id",
-        otherKey: "user_id",
+        as: "users",
+        foreignKey: "roleId",
+        otherKey: "userId",
         onDelete: "RESTRICT",
         onUpdate: "CASCADE",
       });
@@ -20,7 +21,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Role.init(
     {
-      id: { type: DataTypes.INTEGER, primaryKey: true },
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       name: DataTypes.STRING,
     },
     {

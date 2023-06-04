@@ -1,5 +1,4 @@
 const Status = require("../models").Status;
-const User = require("../models").User;
 
 module.exports = {
   getById(req, res) {
@@ -31,7 +30,7 @@ module.exports = {
   list(req, res) {
     return Status.findAll({
       limit: 10,
-      include: User,
+      include: [],
       order: [["createdAt", "DESC"]],
     })
       .then((docs) => {
@@ -56,7 +55,7 @@ module.exports = {
   listStatusUser(req, res) {
     return Status.findAll({
       limit: 10,
-      include: User,
+      include: [],
       where: {
         user_id: req.userId,
       },

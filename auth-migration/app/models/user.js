@@ -10,19 +10,24 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Status, {
+        foreignKey: "user_id",
+        as: "status",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
       User.belongsToMany(models.Role, {
         through: "user_roles",
-        foreignKey: "user_id",
-        otherKey: "role_id",
+        foreignKey: "userId",
+        as: "roles",
+        otherKey: "roleId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       });
     }
   }
   User.init(
     {
-      id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
+      id: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,

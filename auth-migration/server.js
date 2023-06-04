@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
-
+const db = require("./app/models");
 const logger = require("morgan");
 
 const app = express();

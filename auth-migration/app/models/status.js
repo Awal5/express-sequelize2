@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Status.belongsTo(models.User, {
         foreignKey: "user_id",
+        as: "user",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
@@ -20,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.UUID,
-        primaryKey: true,
-        allowNull: false,
         defaultValue: UUIDV4,
+        allowNull: false,
+        primaryKey: true,
       },
       title: DataTypes.STRING,
       body: DataTypes.STRING,
-      user_id: DataTypes.INTEGER,
+      user_id: DataTypes.STRING,
     },
     {
       sequelize,

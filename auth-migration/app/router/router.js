@@ -17,7 +17,9 @@ module.exports = function (app) {
   app.post("/api/auth/signin", verifySignController.signin);
 
   //Status
-  app.get("/api/status", statusController.list);
+  app.get("/api/status", (req, res) => {
+    statusController.list(req, res);
+  });
   app.get(
     "/api/statususer",
     [verifyJwtTokenController.verifyToken],
