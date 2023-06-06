@@ -9,6 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Order, {
+        foreignKey: "user_id",
+        as: "order",
+        onDelete: "CASCADE",
+        onUpdate: "RESTRICT",
+      });
+
+      User.belongsToMany(models.Roles, {
+        through: "user_roles",
+        foreignKey: "user_id",
+        as: "roles",
+        otherKey: "role_id",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   User.init(
@@ -16,11 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: UUIDV4,
+        type: DataTypes.STRING,
       },
       name: DataTypes.STRING,
       email: DataTypes.STRING,
+      address: DataTypes.TEXT,
+      password: DataTypes.STRING,
     },
     {
       sequelize,
