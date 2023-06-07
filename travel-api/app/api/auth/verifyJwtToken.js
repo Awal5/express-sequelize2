@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/configRoles.js");
-const User = require("../models").User;
+const config = require("../../config/configRoles.js");
+const User = require("../../models/index.js").User;
 
 module.exports = {
   verifyToken(req, res, next) {
@@ -57,15 +57,12 @@ module.exports = {
     });
   },
 
-  isPmOrAdmin(req, res, next) {
+  isUser(req, res, next) {
     User.findByPk(req.userId).then((user) => {
       user.getRoles().then((roles) => {
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name.toUpperCase() === "PM") {
-            next();
-            return;
-          }
-          if (roles[i].name.toUpperCase() === "ADMIN") {
+          console.log(roles[i].name);
+          if (roles[i].name.toUpperCase() === "USER") {
             next();
             return;
           }
@@ -73,7 +70,7 @@ module.exports = {
         res.status(403).send({
           auth: false,
           message: "Error",
-          message: "Require PM/Admin Role",
+          message: "Require User Role",
         });
         return;
       });

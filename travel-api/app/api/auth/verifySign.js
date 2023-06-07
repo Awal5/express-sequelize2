@@ -1,10 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../models/index");
-const User = require("../models").User;
-const Role = require("../models").Roles;
+const db = require("../../models/index");
+const User = require("../../models").User;
+const Role = require("../../models").Roles;
 const Op = db.Sequelize.Op;
-const config = require("../config/configRoles");
+const config = require("../../config/configRoles");
 
 module.exports = {
   signup(req, res) {
@@ -87,6 +87,7 @@ module.exports = {
           jwt.sign(
             {
               id: user.id,
+              email: user.email,
             },
             config.secret,
             {

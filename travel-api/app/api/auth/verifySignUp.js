@@ -1,5 +1,5 @@
-const User = require("../models").User;
-const config = require("../config/configRoles.js");
+const User = require("../../models").User;
+const config = require("../../config/configRoles.js");
 const ROLEs = config.ROLEs;
 
 module.exports = {
