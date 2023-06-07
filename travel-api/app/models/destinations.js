@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       city_name: DataTypes.STRING,
       price: DataTypes.INTEGER,
-      price: DataTypes.INTEGER,
       from: DataTypes.STRING,
     },
     {
