@@ -3,6 +3,7 @@ const verifySignController = require("../api").verifySign;
 const verifyJwtTokenController = require("../api").verifyJwtToken;
 const destinationsController = require("../api").destinationsController;
 const vehiclesController = require("../api").vehicles;
+const orderController = require("../api").order;
 
 module.exports = function (app) {
   //User Auth
@@ -68,5 +69,26 @@ module.exports = function (app) {
     "/api/vehicles/delete/:id",
     [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
     vehiclesController.deleteVehicle
+  );
+
+  //order
+  app.get("/order", orderController.findMyOrder);
+
+  app.get(
+    "/orders/admin",
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
+    orderController.findAll
+  );
+
+  app.get(
+    "order/:id",
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
+    orderController.findOne
+  );
+
+  app.post(
+    "order/create",
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isUser],
+    orderController.createOrder
   );
 };
