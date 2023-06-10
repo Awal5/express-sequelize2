@@ -80,7 +80,7 @@ module.exports = function (app) {
 
   app.get(
     "/orders/admin",
-    verifyJwtTokenController.verifyToken,
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
     orderController.findAll
   );
 

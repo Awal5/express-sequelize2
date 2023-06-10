@@ -49,7 +49,7 @@ module.exports = {
       });
 
       if (getMyOrder.length === 0) {
-        res.statu(400).send({
+        res.status(400).send({
           status_response: true,
           message: "You not Order",
         });
