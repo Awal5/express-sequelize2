@@ -72,23 +72,29 @@ module.exports = function (app) {
   );
 
   //order
-  app.get("/order", orderController.findMyOrder);
+  app.get(
+    "/order",
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isUser],
+    orderController.findMyOrder
+  );
 
   app.get(
     "/orders/admin",
-    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
+    verifyJwtTokenController.verifyToken,
     orderController.findAll
   );
 
   app.get(
-    "order/:id",
+    "/order/:id",
     [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isAdmin],
     orderController.findOne
   );
 
   app.post(
-    "order/create",
+    "/order/create",
     [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isUser],
-    orderController.createOrder
+    (req, res) => {
+      orderController.createOrder(req, res);
+    }
   );
 };

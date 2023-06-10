@@ -20,9 +20,7 @@ module.exports = {
       console.log(error);
     }
   },
-};
 
-module.exports = {
   async findOne(req, res) {
     try {
       const orderId = req.params.id;
@@ -33,16 +31,14 @@ module.exports = {
 
       res.send({
         status_response: true,
-        message: "Showing Order ",
+        message: "Showing Order Customer ",
         data: getOrder || "Order Not Found",
       });
     } catch (error) {
       console.log(error);
     }
   },
-};
 
-module.exports = {
   async findMyOrder(req, res) {
     try {
       const userId = req.userId;
@@ -69,17 +65,16 @@ module.exports = {
       console.log(error);
     }
   },
-};
 
-module.exports = {
   async createOrder(req, res) {
     try {
       const userId = req.userId;
+      console.log(userId);
 
       const travel_date = req.body.travel_date;
 
       const destination = await Destination.findOne({
-        where: { name: req.body.destination },
+        where: { city_name: req.body.destination },
       });
 
       const fromPlace = await Destination.findOne({
@@ -95,7 +90,7 @@ module.exports = {
       }
 
       const vehicle = await Vehicle.findOne({
-        where: { id: req.body.vehicle },
+        where: { name: req.body.vehicle },
       });
 
       if (!vehicle) {
@@ -106,7 +101,7 @@ module.exports = {
         return;
       }
 
-      const tax = 0.11;
+      const tax = 10000;
 
       const addOrder = {
         order_date: new Date(),
@@ -115,22 +110,23 @@ module.exports = {
         total_price: destination.price + tax,
         status: false,
         user_id: userId,
-        vehicles_id: vehicle.id,
+        vehicles_id: vehicle.no_seri,
         destinations_id: destination.id,
       };
 
-      await Order.create(addOrder);
+      Order.create(addOrder);
 
       res.send({
         status_response: true,
         message:
           "Order Successfull, Please Complete the Payment Before Departure",
         data: {
+          user: addOrder.user_id,
           order_date: addOrder.order_date,
           travel_date: addOrder.travel_date,
           status: "Waiting for Pay",
           vehicles: `${vehicle.name},  ${vehicle.vehicle_type}`,
-          destination: `${destination.name} - ${destination.from}`,
+          destination: `${destination.city_name} - From ${destination.from}`,
           total_price: addOrder.total_price,
         },
       });

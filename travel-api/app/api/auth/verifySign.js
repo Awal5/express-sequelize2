@@ -87,7 +87,6 @@ module.exports = {
           jwt.sign(
             {
               id: user.id,
-              email: user.email,
             },
             config.secret,
             {

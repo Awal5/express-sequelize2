@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Vehicle.hasMany(models.Order, {
-        foreignKey: "vehicle_id",
+        foreignKey: "vehicles_id",
         as: "order",
         onDelete: "CASCADE",
         onUpdate: "RESTRICT",
